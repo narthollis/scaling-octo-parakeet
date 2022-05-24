@@ -1,0 +1,32 @@
+[package]
+name = "rust-operator-play"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+doc = false
+name = "controller"
+path = "src/main.rs"
+
+[[bin]]
+doc = false
+name = "crdgen"
+path = "src/crdgen.rs"
+
+[lib]
+name = "controller"
+path = "src/lib.rs"
+
+[dependencies]
+tokio = { version = "~1.18", features = ["macros", "rt-multi-thread" ] } # Macros for easy project setup and testing, multi-threaded runtime for best utilization of resources
+kube = { version = "~0.71", default-features = true, features = ["kube-derive", "derive"] } # Library for talking to Kubernetes API
+kube-derive = "~0.71" # Support for Custom Resource Definitions
+kube-runtime = "~0.71" # Custom controller support
+k8s-openapi = { version = "~0.14", default-features = false, features = ["schemars", "v1_23"] } # Kube-rs depends on k8s-openapi
+futures = "~0.3"
+# All serde dependencies are used to serialize/deserialize CRDs and other Kubernetes-related structs
+serde = "~1.0"
+serde_json = "~1.0"
+serde_yaml = "~0.8"
+schemars = "~0.8"
+thiserror = "~1.0" # Custom Error definitions and convenient error mappings

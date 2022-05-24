@@ -1,0 +1,63 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: cronjobs.batch.narthollis.net
+spec:
+  group: batch.narthollis.net
+  names:
+    categories: []
+    kind: CronJob
+    plural: cronjobs
+    shortNames: []
+    singular: cronjob
+  scope: Namespaced
+  versions:
+    - additionalPrinterColumns:
+        - description: name of foo
+          jsonPath: ".status.is_bad"
+          name: Spec
+          type: string
+      name: v1
+      schema:
+        openAPIV3Schema:
+          description: "Auto-generated derived type for CronJobSpec via `CustomResource`"
+          properties:
+            spec:
+              properties:
+                info:
+                  description: Info things and others
+                  title: Information
+                  type: string
+                name:
+                  description: Name of the thing with the stuff
+                  title: Name
+                  type: string
+              required:
+                - info
+                - name
+              type: object
+            status:
+              nullable: true
+              properties:
+                is_bad:
+                  description: Is the thing bad?
+                  title: Is Bad
+                  type: boolean
+                last_updated:
+                  description: Last time the thing was updated
+                  format: date-time
+                  nullable: true
+                  title: Last Updated
+                  type: string
+              required:
+                - is_bad
+              type: object
+          required:
+            - spec
+          title: CronJob
+          type: object
+      served: true
+      storage: true
+      subresources:
+        status: {}
